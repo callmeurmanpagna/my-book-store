@@ -22,7 +22,7 @@ export default function Footer() {
         </div>
         <div>
           <h4 className="font-semibold mb-3 text-sm">Contact</h4>
-          <p className="text-sm text-gray-500 dark:text-gray-400">support@mybookstore.com</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">sokunpagnachea@gmail.com</p>
         </div>
       </div>
       <div className="text-center text-xs text-gray-400 dark:text-gray-600 py-4 border-t border-gray-200 dark:border-gray-800">
