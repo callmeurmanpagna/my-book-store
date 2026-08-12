@@ -10,6 +10,7 @@ export default function Cart() {
   const navigate = useNavigate();
   const [placing, setPlacing] = useState(false);
   const [error, setError] = useState('');
+  const [orderSuccess, setOrderSuccess] = useState(false);
 
   async function handlePlaceOrder() {
     setError('');
@@ -17,7 +18,8 @@ export default function Cart() {
     try {
       await api.post('/orders');
       await refreshCart();
-      navigate('/profile');
+      setOrderSuccess(true);
+      setTimeout(() => navigate('/profile'), 1800);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to place order.');
     } finally {
@@ -42,6 +44,12 @@ export default function Cart() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 animate-fade-in">
+      {orderSuccess && (
+        <div className="fixed top-20 right-6 z-50 bg-green-500 text-white px-5 py-3 rounded-xl shadow-lg animate-fade-in">
+          ✅ Order placed successfully!
+        </div>
+      )}
+
       <h1 className="font-serif text-3xl font-bold mb-6">Shopping Cart</h1>
 
       <div className="grid lg:grid-cols-3 gap-8">
@@ -52,7 +60,9 @@ export default function Cart() {
               <div className="flex-1 min-w-0">
                 <h3 className="font-semibold truncate">{item.title}</h3>
                 <p className="text-sm text-gray-500">{item.author}</p>
-                <p className="font-bold text-brand-600 dark:text-brand-300 mt-1">${Number(item.price).toFixed(2)}</p>
+                <p className="font-bold text-brand-600 dark:text-brand-300 mt-1">
+                  ${Number(item.price).toFixed(2)} <span className="text-sm text-gray-400 font-normal">× {item.quantity} = ${(Number(item.price) * item.quantity).toFixed(2)}</span>
+                </p>
 
                 <div className="flex items-center gap-3 mt-3">
                   <div className="flex items-center border border-gray-300 dark:border-gray-700 rounded-full">
