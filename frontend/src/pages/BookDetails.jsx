@@ -63,8 +63,15 @@ export default function BookDetails() {
 
           <p className="mt-5 text-gray-600 dark:text-gray-300 leading-relaxed">{book.description}</p>
 
-          <div className="mt-6 text-3xl font-bold text-brand-600 dark:text-brand-300">
-            ${Number(book.price).toFixed(2)}
+          <div className="mt-6">
+            <div className="text-3xl font-bold text-brand-600 dark:text-brand-300">
+              ${Number(book.price).toFixed(2)} <span className="text-base text-gray-400 font-normal">/ each</span>
+            </div>
+            {quantity > 1 && (
+              <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                Total for {quantity}: <span className="font-semibold text-brand-600 dark:text-brand-300">${(Number(book.price) * quantity).toFixed(2)}</span>
+              </div>
+            )}
           </div>
 
           <div className="mt-6 flex items-center gap-4">
